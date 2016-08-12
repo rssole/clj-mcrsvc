@@ -12,7 +12,7 @@
 
 (defn home-page
   [request]
-  (ring-resp/response "Hello World!"))
+  (ring-resp/response "Hello from well... me :)!"))
 
 ;; Defines "/" and "/about" routes with their associated :get handlers.
 ;; The interceptors defined after the verb map (e.g., {:get home-page}
@@ -59,7 +59,7 @@
               ;; Either :jetty, :immutant or :tomcat (see comments in project.clj)
               ::http/type :jetty
               ;;::http/host "localhost"
-              ::http/port 8080
+              ::http/port (Integer. (or (System/getenv "PORT") 5000))
               ;; Options to pass to the container (Jetty)
               ::http/container-options {:h2c? true
                                         :h2? false
