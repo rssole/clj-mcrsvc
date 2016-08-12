@@ -5,10 +5,39 @@ pom.xml
 pom.xml.asc
 *.jar
 *.class
-/.lein-*
-/.nrepl-port
-.hgignore
-.hg/
 .idea
 *.iml
 *.ipr
+
+# Leiningen
+classes/
+lib/
+native/
+checkouts/
+target/
+.lein-*
+repl-port
+.nrepl-port
+.repl
+
+# Temp Files
+*.orig
+*~
+.*.swp
+.*.swo
+*.tmp
+*.bak
+
+# OS X
+.DS_Store
+
+# Logging
+*.log
+/logs/
+
+# Builds
+out/
+build/
+
+
+
