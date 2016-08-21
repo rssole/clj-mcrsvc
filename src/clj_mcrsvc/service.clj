@@ -2,7 +2,8 @@
   (:require [io.pedestal.http :as http]
             [io.pedestal.http.route :as route]
             [io.pedestal.http.body-params :as body-params]
-            [ring.util.response :as ring-resp]))
+            [ring.util.response :as ring-resp]
+            [io.pedestal.http :as bootstrap]))
 
 (defn about-page
   [request]
@@ -14,14 +15,25 @@
   [request]
   (ring-resp/response "Hello from well... me :)!"))
 
+(def mock-project-collection
+  {:name1 {:something "Something" :something-else "Something else..."}
+   :name2 {:something "Something2" :something-else "Something else 2..."}})
+;
+(defn get-projects
+  [_]
+  (bootstrap/json-response mock-project-collection))
+
 ;; Defines "/" and "/about" routes with their associated :get handlers.
 ;; The interceptors defined after the verb map (e.g., {:get home-page}
 ;; apply to / and its children (/about).
 (def common-interceptors [(body-params/body-params) http/html-body])
 
+
+
 ;; Tabular routes
 (def routes #{["/" :get (conj common-interceptors `home-page)]
-              ["/about" :get (conj common-interceptors `about-page)]})
+              ["/about" :get (conj common-interceptors `about-page)]
+              ["/projects" :get `get-projects]})
 
 ;; Map-based routes
 ;(def routes `{"/" {:interceptors [(body-params/body-params) bootstrap/html-body]
